@@ -25,11 +25,17 @@ def print(students)
   i = 0
   puts "What letter do you want?"
   letter = gets.chomp
-  while i < students.length do
-    if students[i][:name][0] == letter && students[i][:name].length < 12
-      puts "#{i + 1}. #{students[i][:name]} (#{students[i][:cohort]} cohort)"
+  if letter == "" || letter == " "
+    students.each_with_index do | student, index |
+      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
-    i += 1
+  else
+    while i < students.length do
+      if students[i][:name][0] == letter && students[i][:name].length < 12
+        puts "#{i + 1}. #{students[i][:name]} (#{students[i][:cohort]} cohort)"
+      end
+      i += 1
+    end
   end
 end
 
