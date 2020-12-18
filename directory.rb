@@ -7,8 +7,8 @@ def input_students
   name = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
-    sport = name.split(",")[1].lstrip
-    name = name.split(",")[0]
+    sport = name.split(",")[1].lstrip.rstrip
+    name = name.split(",")[0].lstrip
     students << {name: name, cohort: :november, sport: sport}
     puts "Now we have #{students.count} students"
     #Get another name from the user
@@ -29,12 +29,12 @@ def print(students)
   letter = gets.chomp
   if letter == "" || letter == " "
     students.each_with_index do | student, index |
-      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort; #{student[:sport]} team)"
+      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort; #{student[:sport]} team)".center(70)
     end
   else
     while i < students.length do
       if students[i][:name][0] == letter && students[i][:name].length < 12
-        puts "#{i + 1}. #{students[i][:name]} (#{students[i][:cohort]} cohort, #{students[:sport]} team)"
+        puts "#{i + 1}. #{students[i][:name]} (#{students[i][:cohort]} cohort, #{students[:sport]} team)".center(70)
       end
       i += 1
     end
