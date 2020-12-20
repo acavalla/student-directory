@@ -9,7 +9,7 @@ def input_students
   while !name.empty? do
     case name.split(",").length
       when 1
-        name = name[0].lstrip.rstrip
+        name = name.lstrip.rstrip
         sport = "no sports"
         cohort = "november"
       when 2
