@@ -40,19 +40,21 @@ def print_header
 end
 
 def print(students)
-  i = 0
-  puts "What letter do you want?".center(70)
-  letter = gets.chomp
-  if letter == "" || letter == " "
-    students.each_with_index do | student, index |
-      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort; #{student[:sport]} team)".center(70)
+  new_hash = []
+  students.each do | student |
+    if new_hash.include?(student[:cohort]) == false
+      new_hash = new_hash.push(student[:cohort])
     end
-  else
-    while i < students.length do
-      if students[i][:name][0] == letter && students[i][:name].length < 12
-        puts "#{i + 1}. #{students[i][:name]} (#{students[i][:cohort]} cohort, #{students[i][:sport]} team)".center(70)
+  end
+  puts new_hash[0].to_s.center(70)
+  for i in 0..(new_hash.length - 1) do
+    if new_hash[i] != new_hash[i - 1] && i != 0
+      puts new_hash[i].to_s.center(70)
+    end
+    students.each do | student |
+      if student[:cohort] == new_hash[i]
+        puts "#{student[:name]}".center(70)
       end
-      i += 1
     end
   end
 end
@@ -66,7 +68,6 @@ def print_footer(students)
 end
 
 students = input_students
-puts students
 print_header
 print(students)
 print_footer(students)
