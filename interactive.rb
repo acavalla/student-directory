@@ -3,7 +3,7 @@
 def interactive_menu
   loop do
     print_menu
-    process(STDIN.gets.chomp)
+    user_input(STDIN.gets.chomp)
   end
 end
 
@@ -15,7 +15,7 @@ def print_menu
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
-def process(selection)
+def user_input(selection)
   case selection
     when "1"
       students = input_students
@@ -41,7 +41,6 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     populate_students(name, cohort)
-    #@students << {name: name, cohort: :november}
     puts "Now we have #{@students.count} students"
   # get another name from the user
     name = STDIN.gets.chomp
