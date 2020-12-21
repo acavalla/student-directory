@@ -82,14 +82,14 @@ end
 
 def try_load_students
   filename = ARGV.first # first argument given in shell
-  return if filename.nil? # exit method if no argument given
-  if File.exists?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else # if it doesn't exist
+  if filename.nil?
+    filename = "students.csv"
+  elsif File.exists?(filename) == false # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist"
     exit
   end
+  load_students(filename)
+  puts "Loaded #{@students.count} from #{filename}"
 end
 
 def load_students(filename = "students.csv")
@@ -101,6 +101,7 @@ def load_students(filename = "students.csv")
   file.close
 end
 
+try_load_students
 interactive_menu
 #students = input_students
 #print_header
