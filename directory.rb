@@ -4,7 +4,7 @@ def input_students
   # Create an empty array
   students = []
   # get the first name
-  name = gets.chomp
+  name = gets.rstrip
   # while the name is not empty, repeat this code
   while !name.empty? do
     case name.split(",").length
