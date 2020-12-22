@@ -45,12 +45,14 @@ def input_students
   # get another name from the user
     name = STDIN.gets.chomp
   end
+  feedback(1)
 end
 
 def show_students
   print_header
   print_students_list
   print_footer
+  feedback(2)
 end
 
 def print_header
@@ -78,6 +80,7 @@ def save_students
     file.puts csv_line
   end
   file.close
+  feedback(3)
 end
 
 def try_load_students
@@ -100,11 +103,26 @@ def load_students(filename = "students.csv")
     #@students << {name: name, cohort: cohort.to_sym}
   end
   file.close
+  feedback(4)
 end
 
 def populate_students(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
+
+def feedback(x)
+  case x
+    when 1
+      puts "Students input successfully"
+    when 2
+      puts "Students displayed successfully"
+    when 3
+      puts "Students saved successfully"
+    when 4
+      puts "Students loaded successfully"
+    end
+end
+
 
 try_load_students
 interactive_menu
