@@ -10,8 +10,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list"
-  puts "4. Load the list"
+  puts "3. Save the current list"
+  puts "4. Load a list"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -90,13 +90,10 @@ end
 
 #4
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do | line |
+  File.foreach(filename) do | line |
     name, cohort = line.chomp.split(",")
     populate_students(name, cohort)
-    #@students << {name: name, cohort: cohort.to_sym}
   end
-  file.close
 end
 
 def populate_students(name, cohort)
