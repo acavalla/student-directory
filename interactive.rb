@@ -30,6 +30,7 @@ def user_input(selection)
     else
       puts "I don't know what you mean, try again"
   end
+  feedback(selection)
 end
 
 def input_students
@@ -45,14 +46,12 @@ def input_students
   # get another name from the user
     name = STDIN.gets.chomp
   end
-  feedback(1)
 end
 
 def show_students
   print_header
   print_students_list
   print_footer
-  feedback(2)
 end
 
 def print_header
@@ -80,7 +79,6 @@ def save_students
     file.puts csv_line
   end
   file.close
-  feedback(3)
 end
 
 def try_load_students
@@ -103,22 +101,21 @@ def load_students(filename = "students.csv")
     #@students << {name: name, cohort: cohort.to_sym}
   end
   file.close
-  feedback(4)
 end
 
 def populate_students(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
-def feedback(x)
-  case x
-    when 1
+def feedback(selection)
+  case selection
+    when "1"
       puts "Students input successfully"
-    when 2
+    when "2"
       puts "Students displayed successfully"
-    when 3
+    when "3"
       puts "Students saved successfully"
-    when 4
+    when "4"
       puts "Students loaded successfully"
     end
 end
