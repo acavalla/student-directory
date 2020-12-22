@@ -24,7 +24,7 @@ def user_input(selection)
     when "3", "4"
       puts "What filename would you like to save to or load from?"
       filename = STDIN.gets.chomp
-      if selection == 3
+      if selection == "3"
         save_students(filename)
       else
         load_students(filename)
@@ -79,13 +79,14 @@ end
 
 #3
 def save_students(filename)
-  file = File.open(filename, "w")
+  #file = File.open(filename, "w")
   @students.each do | student |
-    student_data = [student[:name]], [student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    student_data = [student[:name]], ",", [student[:cohort]], "\n"
+    File.write(filename, student_data.join, mode: "a")
+  #  csv_line = student_data.join(",")
+  #  file.puts csv_line
   end
-  file.close
+  #file.close
 end
 
 #4
