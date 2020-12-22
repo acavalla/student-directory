@@ -10,8 +10,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list"
+  puts "4. Load the list"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -21,10 +21,14 @@ def user_input(selection)
       students = input_students
     when "2"
       show_students
-    when "3"
-      save_students
-    when "4"
-      load_students
+    when "3", "4"
+      puts "What filename would you like to save to or load from?"
+      filename = STDIN.gets.chomp
+      if selection == 3
+        save_students(filename)
+      else
+        load_students(filename)
+      end
     when "9"
       exit
     else
@@ -33,6 +37,7 @@ def user_input(selection)
   feedback(selection)
 end
 
+# 1
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -48,17 +53,18 @@ def input_students
   end
 end
 
+# 2
 def show_students
   print_header
   print_students_list
   print_footer
 end
-
+# 2
 def print_header
   puts "The students of my cohort at Makers Academy"
   puts "-------------"
 end
-
+#2
 def print_students_list
   if @students.count != 0
     @students.each do | student |
@@ -66,13 +72,14 @@ def print_students_list
     end
   end
 end
-
+#2
 def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students
-  file = File.open("students.csv", "w")
+#3
+def save_students(filename)
+  file = File.open(filename, "w")
   @students.each do | student |
     student_data = [student[:name]], [student[:cohort]]
     csv_line = student_data.join(",")
@@ -81,18 +88,7 @@ def save_students
   file.close
 end
 
-def try_load_students
-  filename = ARGV.first # first argument given in shell
-  if filename.nil?
-    filename = "students.csv"
-  elsif File.exists?(filename) == false # if it doesn't exist
-    puts "Sorry, #{filename} doesn't exist"
-    exit
-  end
-  load_students(filename)
-  puts "Loaded #{@students.count} from #{filename}"
-end
-
+#4
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do | line |
@@ -117,9 +113,20 @@ def feedback(selection)
       puts "Students saved successfully"
     when "4"
       puts "Students loaded successfully"
-    end
+  end
 end
 
+def try_load_students
+  filename = ARGV.first # first argument given in shell
+  if filename.nil?
+    filename = "students.csv"
+  elsif File.exists?(filename) == false # if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist"
+    exit
+  end
+  load_students(filename)
+  puts "Loaded #{@students.count} from #{filename}"
+end
 
 try_load_students
 interactive_menu
