@@ -1,3 +1,5 @@
+require 'CSV'
+
 @students = [] # an empty array accessible to all methods
 
 def interactive_menu
@@ -79,21 +81,18 @@ end
 
 #3
 def save_students(filename)
-  #file = File.open(filename, "w")
   @students.each do | student |
-    student_data = [student[:name]], ",", [student[:cohort]], "\n"
-    File.write(filename, student_data.join, mode: "a")
-  #  csv_line = student_data.join(",")
-  #  file.puts csv_line
+    student_data = student[:name], student[:cohort]
+    CSV.open(filename, "a") do | csv |
+      csv << student_data
+    end
   end
-  #file.close
 end
 
 #4
-def load_students(filename = "students.csv")
-  File.foreach(filename) do | line |
-    name, cohort = line.chomp.split(",")
-    populate_students(name, cohort)
+def load_students(filename)
+  CSV.foreach(filename) do | line |
+    populate_students(line[0], line[1])
   end
 end
 
@@ -126,9 +125,5 @@ def try_load_students
   puts "Loaded #{@students.count} from #{filename}"
 end
 
-try_load_students
+#try_load_students
 interactive_menu
-#students = input_students
-#print_header
-#print(students)
-#print_footer(students)
