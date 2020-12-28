@@ -41,11 +41,8 @@ end
 
 # 1
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  # get the first name
-  name = STDIN.gets.chomp
-  cohort = "november"
+  input_questions
+  name, cohort = STDIN.gets.chomp, "november"
   # while the name is not empty, repeat this code
   while !name.empty? do
     populate_students(name, cohort)
@@ -54,7 +51,11 @@ def input_students
     name = STDIN.gets.chomp
   end
 end
-
+# 1
+def input_questions
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+end
 # 2
 def show_students
   print_header
