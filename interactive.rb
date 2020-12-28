@@ -26,11 +26,8 @@ def user_input(selection)
     when "3", "4"
       puts "What filename would you like to save to or load from?"
       filename = STDIN.gets.chomp
-      if selection == "3"
-        save_students(filename)
-      else
-        load_students(filename)
-      end
+      save_students(filename) if selection == "3"
+      load_students(filename) if selection == "4"
     when "9"
       exit
     else
