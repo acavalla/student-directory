@@ -83,17 +83,13 @@ end
 def save_students(filename)
   @students.each do | student |
     student_data = student[:name], student[:cohort]
-    CSV.open(filename, "a") do | csv |
-      csv << student_data
-    end
+    CSV.open(filename, "a") { | csv | csv << student_data }
   end
 end
 
 #4
 def load_students(filename)
-  CSV.foreach(filename) do | line |
-    populate_students(line[0], line[1])
-  end
+  CSV.foreach(filename) { | line | populate_students(line[0], line[1]) }
 end
 
 def populate_students(name, cohort)
