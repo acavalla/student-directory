@@ -19,19 +19,15 @@ end
 
 def user_input(selection)
   case selection
-    when "1"
-      students = input_students
-    when "2"
-      show_students
+    when "1"; students = input_students
+    when "2"; show_students
     when "3", "4"
       puts "What filename would you like to save to or load from?"
       filename = STDIN.gets.chomp
       save_students(filename) if selection == "3"
       load_students(filename) if selection == "4"
-    when "9"
-      exit
-    else
-      puts "I don't know what you mean, try again"
+    when "9"; exit
+    else; puts "I don't know what you mean, try again"
   end
   feedback(selection)
 end
